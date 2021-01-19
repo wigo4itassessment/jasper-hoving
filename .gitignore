@@ -63,3 +63,4 @@ typings/
 server/build
 
 .vscode
+.DS_Store
