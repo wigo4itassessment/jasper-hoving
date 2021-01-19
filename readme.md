@@ -6,8 +6,8 @@ This yakshop features:
 
 - super fast react rendering with Next.js 🚀
 - express + typescript on the server
-- input validation on all requests
-- automatic error handling in express
+- input validation middleware on all requests
+- some custom error handling in express
 - websocket to update the herd & stock
 - proper url routing on the client
 - tests in jest (in de backend)
