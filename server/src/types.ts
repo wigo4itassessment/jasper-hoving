@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 export interface LabYak {
   age: number;
   name: string;
@@ -8,4 +10,13 @@ export interface LabYak {
 export interface Stock {
   milk: number;
   skins: number;
+}
+
+export interface ValidatedRequest extends Request {
+  validatedData?: any;
+}
+
+export interface Order {
+  customer: string;
+  order: Stock;
 }
