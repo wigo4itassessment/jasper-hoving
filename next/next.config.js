@@ -5,8 +5,8 @@ module.exports = {
     async rewrites() {
       return [
         {
-          source: '/api/:path*',
-          destination: 'http://localhost:8000/:path*' // Proxy to Backend
+          source: '/yak-shop/:path*',
+          destination: 'http://localhost:8000/yak-shop/:path*' // Proxy to Backend
         }
       ]
     }

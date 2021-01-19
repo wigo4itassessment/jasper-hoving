@@ -20,3 +20,9 @@ export interface Order {
   customer: string;
   order: Stock;
 }
+
+export interface HerdResponse {
+  name: string;
+  age: string;
+  "age-last-shaved": number;
+}
