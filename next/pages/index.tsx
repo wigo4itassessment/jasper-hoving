@@ -8,6 +8,8 @@ import serverUrl from "../utils/serverUrl"
 import { HerdResponse } from "../types"
 import { useRouter } from "next/router"
 import { NextPageContext } from "next"
+import Wrapper from "../components/Wrapper"
+import { Button } from "@material-ui/core"
 
 export default function Home({
   herd,
@@ -16,36 +18,20 @@ export default function Home({
   herd: HerdResponse[]
   day: number
 }) {
-  useEffect(() => {
-    // const bla = async () => {
-    //   const result = await axios.get("/api").catch((err) => console.error(err))
-    //   console.log(result && result.data)
-    // }
-    // bla()
-  }, [])
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Yakshop</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        day:
-        <div>{day}</div>
-        <h2>Current herd:</h2>
-        {herd.map((yak, index) => (
-          <div key={index}>
-            {yak.name} {yak.age} {yak["age-last-shaved"]}
-          </div>
-        ))}
-        <Link href={{ pathname: "/order", query: { day } }}>
-          <a>Order</a>
-        </Link>
-      </main>
-
-      <footer className={styles.footer}></footer>
-    </div>
+    <Wrapper>
+      <h3>Current herd</h3>
+      {herd.map((yak, index) => (
+        <div key={index}>
+          <b>{yak.name}</b> {`${yak.age} years`}
+        </div>
+      ))}
+      <Link href={{ pathname: "/order", query: { day } }}>
+        <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
+          Go to checkout
+        </Button>
+      </Link>
+    </Wrapper>
   )
 }
 
@@ -53,8 +39,8 @@ export async function getServerSideProps(context: NextPageContext) {
   let herd: HerdResponse[] = []
   const day = context.query.day || 1 //default day is one
   try {
-    const result = await axios.get(`${serverUrl()}/yak-shop/herd/${day}`)
-    herd = result.data.herd
+    const response = await axios.get(`${serverUrl()}/yak-shop/herd/${day}`)
+    herd = response.data.herd
     console.log(herd)
   } catch (err) {
     console.error(err)
