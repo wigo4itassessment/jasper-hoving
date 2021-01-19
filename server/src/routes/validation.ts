@@ -18,8 +18,8 @@ export const validateOrder = (req: Request): ValidationResult =>
   Joi.object({
     customer: Joi.string().required(),
     order: Joi.object({
-      milk: Joi.number(),
-      skins: Joi.number(),
+      milk: Joi.number().required(),
+      skins: Joi.number().required(),
     }).required(),
   }).validate(req.body);
 

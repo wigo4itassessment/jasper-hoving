@@ -14,6 +14,8 @@ import { placeOrder, subtractOrders } from "../db/order";
 import calculateOrder from "../logic/calculateOrder";
 import { StatusCodes } from "http-status-codes";
 import { ResponseError } from "../errors";
+import { websocket } from "../server";
+import sendToWs from "../sendToWs";
 
 const router = express.Router();
 
@@ -41,6 +43,7 @@ router.post("/load", validate(validateLoad), (req: ValidatedRequest, res) => {
     (obj: any) => obj["$"] // process the xml input
   );
   loadHerd(data);
+
   res.status(205).send({ message: "Herd loaded :)" });
 });
 
@@ -60,6 +63,7 @@ router.post(
     if (status === StatusCodes.NOT_FOUND) throw new ResponseError(status);
     placeOrder(data.customer, order);
 
+    sendToWs(herd, day);
     res.status(status).send(order);
   }
 );

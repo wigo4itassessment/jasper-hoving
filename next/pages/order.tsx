@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 import { Button, Card } from "@material-ui/core"
 import { useRouter } from "next/router"
 import Wrapper from "../components/Wrapper"
+import useWebsockets from "../hooks/useWebsocket"
 
 const useStyles = makeStyles({
   textInput: { width: "350px" },
@@ -20,12 +21,13 @@ const Order = ({ day, stock }: { day: number; stock: StockResponse }) => {
   const [milk, setMilk] = useState<number>()
   const [skins, setSkins] = useState<number>()
 
+  const { updatedStock } = useWebsockets(undefined, stock)
+
   const onChangeInput = (setter: Function, event: any) => {
     setter(event.currentTarget.value || 0)
   }
 
   const placeOrder = async () => {
-    let result
     if (!milk && !skins) {
       router.push("/error")
       return
@@ -34,8 +36,9 @@ const Order = ({ day, stock }: { day: number; stock: StockResponse }) => {
     try {
       const response = await axios.post(`/yak-shop/order/${day}`, {
         customer: "jasper",
-        order: { milk, skins },
+        order: { milk: milk || 0, skins: skins || 0 },
       })
+      console.log(response.status)
       const result = response.data
       router.push({
         pathname: "/success",
@@ -52,8 +55,8 @@ const Order = ({ day, stock }: { day: number; stock: StockResponse }) => {
       <div style={{ display: "flex" }}>
         <h4>Currently in stock:</h4>
         <div style={{ marginLeft: 30 }}>
-          <p>🥛 {stock.milk} milk </p>
-          <p>🐄 {stock.skins} skins</p>
+          <p>🥛 {updatedStock!.milk} milk </p>
+          <p>🐄 {updatedStock!.skins} skins</p>
         </div>
       </div>
       <div

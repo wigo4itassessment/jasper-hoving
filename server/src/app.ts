@@ -2,8 +2,6 @@ import express, { Request, Response, NextFunction } from "express";
 import yakshop from "./routes/yakshop";
 
 import bodyParser from "body-parser";
-import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs";
 import { errorHandler } from "./errors";
 require("body-parser-xml")(bodyParser);
 
