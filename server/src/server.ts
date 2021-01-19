@@ -1,24 +1,8 @@
+import { start } from "repl";
 import { app } from "./app";
-
+import startSocket from "./socket";
 const port = 8000;
 
-import WebSocket from "ws";
-
-const wss = new WebSocket.Server({ port: 8080 });
-
-export let websocket: WebSocket | undefined;
-
-wss.on("connection", function connection(ws) {
-  websocket = ws;
-  ws.on("message", function incoming(message) {
-    console.log("received: %s", message);
-  });
-
-  ws.on("close", () => {
-    websocket = undefined;
-  });
-
-  ws.send("something");
-});
+startSocket();
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));

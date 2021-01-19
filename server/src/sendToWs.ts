@@ -1,7 +1,7 @@
 import { getHerd } from "./db/herd";
 import { subtractOrders } from "./db/order";
 import calculateStock from "./logic/calculateStock";
-import { websocket } from "./server";
+import { websocket } from "./socket";
 
 function sendToWs(herd, day) {
   if (websocket)

@@ -14,7 +14,6 @@ import { placeOrder, subtractOrders } from "../db/order";
 import calculateOrder from "../logic/calculateOrder";
 import { StatusCodes } from "http-status-codes";
 import { ResponseError } from "../errors";
-import { websocket } from "../server";
 import sendToWs from "../sendToWs";
 
 const router = express.Router();
