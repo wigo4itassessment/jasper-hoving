@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run serve-next & npm run serve-express",
+    
     "build": "npm run build-next && npm run build-express",
     "start":"node server/build/server.js & cd next && npm run start",
     "test": "cd server && npm run test",
    
-    "build-next": "cd next && npm run build",
-    "build-express": "cd server && npm run build",
+    "build-next": "cd next && npm install &&  npm run build",
+    "build-express": "cd server && npm install && npm run build",
     "serve-next": "cd next && npm run dev",
     "serve-express": "cd server && npm run watch"
 
